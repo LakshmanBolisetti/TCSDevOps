@@ -53,8 +53,7 @@ resource "aws_route_table" "rt" {
 # Associate route table with subnets
 resource "aws_route_table_association" "rta" {
   count      = 2
-  subnet_id  = aws_subnet.subnet1.id
-  subnet_id  = aws_subnet.subnet2.id
+subnet_id = element([aws_subnet.subnet1.id, aws_subnet.subnet2.id], count.index)
   route_table_id = aws_route_table.rt.id
 }
 # Create a security group
