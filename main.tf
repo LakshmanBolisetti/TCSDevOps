@@ -53,12 +53,11 @@ resource "aws_security_group" "instance_sg" {
 }
 
 # Create an EC2 instance
-resource "aws_instance" "example" {
+resource "aws_instance" "FirstInstance" {
   ami           = "ami-09caa684bdee947fc" 
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.subnet1.id
-  security_groups = [aws_security_group.instance_sg.name]
-
+  vpc_security_group_ids = [aws_security_group.instance_sg.id]
   tags = {
     Name = "MyInstance"
   }
