@@ -234,7 +234,7 @@ This is pipeline not use the webhooks. We can see the pipeline only build when w
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/28.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/29.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/30.png)
-![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/30.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/31.png)
 
 
 
