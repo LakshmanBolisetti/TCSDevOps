@@ -1,7 +1,5 @@
 provider "aws" {
   region = "us-east-2"
-  access_key = "AKIAY2ECJ2TMLMTXXN4W"
-  secret_key = "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" #I have only granted read-only access.
 }
 
 # Data source to retrieve all EC2 instances
