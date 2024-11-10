@@ -6,7 +6,7 @@ provider "aws" {
 
 variable "SecretKey" {
 description = "This is for aws credential perpose"
-type = "string"
+type = string
 }
 # Data source to retrieve all EC2 instances
 data "aws_instances" "all" {}
