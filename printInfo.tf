@@ -1,7 +1,13 @@
 provider "aws" {
-  region = "us-east-2" # Replace with your region
+  region = "us-east-2" 
+  access_key = "AKIAY2ECJ2TMLMTXXN4W"
+  secrete_key = "var.SecretKey"
 }
 
+variable "SecretKey" {
+description = "This is for aws credential perpose"
+type = "string"
+}
 # Data source to retrieve all EC2 instances
 data "aws_instances" "all" {}
 
