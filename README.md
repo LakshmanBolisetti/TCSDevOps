@@ -20,13 +20,12 @@ For pushing to the repository, you may be prompted for credentials. You can gene
 I have created two files: one for launching the EC2 instance and the second for printing the EC2 and security group information.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/7.png)
 
-### CreateInstance/createInstance.tf
-  This terraform file crate the ec2 instance.
+### CreateInstance/createInstance.tf This terraform file crate the ec2 instance.
   ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/8.png)
   ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/9.png)
   ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/10.png)
 
-`provider "aws" {
+     `provider "aws" {
 	  region = "us-east-2" 
 	}
 	
@@ -118,18 +117,18 @@ I have created two files: one for launching the EC2 instance and the second for 
 	  }
 	}`
 
- For security reasons we haven't provide aws crdentials in the file. Due to that reason we have to configure the aws credential in our system.
+For security reasons we haven't provide aws crdentials in the file. Due to that reason we have to configure the aws credential in our system.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/11.png)
 
-	After creating the file, we need to initialize Terraform in that folder.
+After creating the file, we need to initialize Terraform in that folder.
 Command : `terraform init`
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/12.png)
 
-	Before applying the changes, we check if the code is working or not. 
+Before applying the changes, we check if the code is working or not. 
 Command : `terraform plan`
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/13.png)
 
-	If the plan is successful, then we can proceed with the apply.
+If the plan is successful, then we can proceed with the apply.
 Command: `terraform apply --auto-approve`
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/14.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/15.png)
