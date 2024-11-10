@@ -1,4 +1,4 @@
-<h1 style="color: blue;"> Create a GitHub Repository with Multiple Branches</h1>
+# Create a GitHub Repository with Multiple Branches
 
 Create Repository: Go to GitHub and create a new repository.
 
@@ -17,7 +17,7 @@ Clone Repo: Clone it to your local machine.
 Create develop and release branches and push them to the remote repository.
 For pushing to the repository, you may be prompted for credentials. You can generate a personal access token or add an SSH key to your GitHub account for secure authentication.
 
-<h1 style="color: blue;">Create Terraform Code to Extract EC2 Instances and Security Groups</h1>
+# Create Terraform Code to Extract EC2 Instances and Security Groups
 Initialize Terraform Configuration: I used the official Terraform website to install Terraform and followed the instructions based on our operating system. [Link](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/5.png)
@@ -193,9 +193,11 @@ Now we push these files into github repository
 
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/21.png)
 
-<h1 style="color: blue;"> Set Up a Jenkins Pipeline</h1>
+# Set Up a Jenkins Pipeline
+
 ### Downloading and installing Jenkins
-Completing the previous steps enables you to download and install Jenkins on AWS. To download and install Jenkins:[Jenkins Install](https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/)
+Completing the previous steps enables you to download and install Jenkins on AWS. To download and install Jenkins:  [Jenkins Install](https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/)
+
 1. Ensure that your software packages are up to date on your instance by using the following command to perform a quick software update:
 $ sudo yum update –y
 2. Add the Jenkins repo using the following command:
