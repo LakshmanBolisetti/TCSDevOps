@@ -21,6 +21,7 @@ I have created two files: one for launching the EC2 instance and the second for 
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/7.png)
 
 **CreateInstance/createInstance.tf**: This terraform file crate the ec2 instance.
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/8.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/9.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/10.png)
@@ -164,10 +165,8 @@ This file will extract the information of EC2 and security groups:
 	    id => instance.vpc_security_group_ids
 	  }
 	}`
+
  
-![image](https://github.com/user-attachments/assets/b85f4716-24a2-481a-a964-7d4c0e59b99d)
-
-
 This file follows the same process: 
 `terraform init` 
 `terraform plan`
@@ -186,23 +185,23 @@ Now we push these files into github repository
 ### Downloading and installing Jenkins
 Completing the previous steps enables you to download and install Jenkins on AWS. To download and install Jenkins:[Jenkins Install](https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/)
 1. Ensure that your software packages are up to date on your instance by using the following command to perform a quick software update:
-[ec2-user ~]$ sudo yum update –y
+$ sudo yum update –y
 2. Add the Jenkins repo using the following command:
-[ec2-user ~]$ sudo wget -O /etc/yum.repos.d/jenkins.repo \
+$ sudo wget -O /etc/yum.repos.d/jenkins.repo \
     https://pkg.jenkins.io/redhat-stable/jenkins.repo
 3. Import a key file from Jenkins-CI to enable installation from the package:
-[ec2-user ~]$ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
-[ec2-user ~]$ sudo yum upgrade
+$ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+$ sudo yum upgrade
 4. Install Java (Amazon Linux 2023):
-[ec2-user ~]$ sudo dnf install java-17-amazon-corretto -y
+$ sudo dnf install java-17-amazon-corretto -y
 5. Install Jenkins:
-[ec2-user ~]$ sudo yum install jenkins -y
+$ sudo yum install jenkins -y
 6. Enable the Jenkins service to start at boot:
-[ec2-user ~]$ sudo systemctl enable jenkins
+$ sudo systemctl enable jenkins
 7. Start Jenkins as a service:
-[ec2-user ~]$ sudo systemctl start jenkins
+$ sudo systemctl start jenkins
 You can check the status of the Jenkins service using the command:
-[ec2-user ~]$ sudo systemctl status jenkins
+$ sudo systemctl status jenkins
 
 ### Create a Pipeline Job in Jenkins:
 Open Jenkins and create a new Pipeline job.
