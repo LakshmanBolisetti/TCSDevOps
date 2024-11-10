@@ -20,8 +20,7 @@ Initialize Terraform Configuration: I used the official Terraform website to ins
 I have created two files: one for launching the EC2 instance and the second for printing the EC2 and security group information.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/7.png)
 
-**CreateInstance/createInstance.tf**
-This terraform file crate the ec2 instance.
+**CreateInstance/createInstance.tf**: This terraform file crate the ec2 instance.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/8.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/9.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/10.png)
@@ -140,7 +139,8 @@ This is the output in the AWS console showing that the Terraform file creates th
 This file will extract the information of EC2 and security groups: 
 **printInfo.tf**  
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/17.png)
-     `provider "aws" {
+
+	`provider "aws" {
 	  region = "us-east-2" # Replace with your region
 	}
 	
@@ -164,10 +164,14 @@ This file will extract the information of EC2 and security groups:
 	    id => instance.vpc_security_group_ids
 	  }
 	}`
+ 
+![image](https://github.com/user-attachments/assets/b85f4716-24a2-481a-a964-7d4c0e59b99d)
+
+
 This file follows the same process: 
 `terraform init` 
 `terraform plan`
- `terraform apply --auto-approve.`
+`terraform apply --auto-approve.`
  ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/18.png)
 
  For destroy the infra
@@ -176,7 +180,7 @@ Command: `terraform destroy --auto-approve`
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/20.png)
 
 Now we push these files into github repository
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/21.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/21.png)
 
 # Set Up a Jenkins Pipeline
 ### Downloading and installing Jenkins
@@ -202,21 +206,21 @@ You can check the status of the Jenkins service using the command:
 
 ### Create a Pipeline Job in Jenkins:
 Open Jenkins and create a new Pipeline job.
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/22.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/22.png)
 
 ### Add Pipeline Script:
 This is pipeline not use the webhooks. We can see the pipeline only build when we do manually.
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/23.png)
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/24.png)
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/25.png)
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/26.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/23.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/24.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/25.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/26.png)
 
 We have now set up build triggers using GitHub webhooks. Whenever changes are made to the code and pushed to the master branch, the pipeline will automatically trigger and complete the build.
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/27.png)
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/28.png)
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/29.png)
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/30.png)
-[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/30.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/27.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/28.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/29.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/30.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/30.png)
 
 
 
