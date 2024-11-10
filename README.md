@@ -1,26 +1,27 @@
 # Create a GitHub Repository with Multiple Branches
-## Create Repository: Go to GitHub and create a new repository.
+Create Repository: Go to GitHub and create a new repository.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/1.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/2.png)
 
-## Install git in your local computer
+Install git in your local computer
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/3.png)
-## Clone Repo: Clone it to your local machine.
+Clone Repo: Clone it to your local machine.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/4.png)
 
-## Create Branches:  
+### Create Branches:  
 Create develop and release branches and push them to the remote repository.
 For pushing to the repository, you may be prompted for credentials. You can generate a personal access token or add an SSH key to your GitHub account for secure authentication.
 
 # Create Terraform Code to Extract EC2 Instances and Security Groups
-### Initialize Terraform Configuration: I used the official Terraform website to install Terraform and followed the instructions based on our operating system.[title](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+Initialize Terraform Configuration: I used the official Terraform website to install Terraform and followed the instructions based on our operating system. [Link](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/5.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/6.png)
 
 I have created two files: one for launching the EC2 instance and the second for printing the EC2 and security group information.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/7.png)
 
-### CreateInstance/createInstance.tf This terraform file crate the ec2 instance.
+**CreateInstance/createInstance.tf**
+This terraform file crate the ec2 instance.
   ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/8.png)
   ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/9.png)
   ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/10.png)
@@ -134,8 +135,89 @@ Command: `terraform apply --auto-approve`
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/15.png)
 
 This is the output in the AWS console showing that the Terraform file creates the instance. Finally, we launch the instances.
-
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/16.png)
+
+This file will extract the information of EC2 and security groups: 
+**printInfo.tf**  
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/17.png)
+     `provider "aws" {
+	  region = "us-east-2" # Replace with your region
+	}
+	
+	# Data source to retrieve all EC2 instances
+	data "aws_instances" "all" {}
+	
+	# Loop through each instance to get detailed information
+	data "aws_instance" "details" {
+	  for_each = toset(data.aws_instances.all.ids)
+	  instance_id = each.value
+	}
+	# Output block to print instance IDs
+	output "ec2_instance_ids" {
+	value = data.aws_instances.all.ids
+	}
+	
+	# Output block to print instance IDs and associated security groups
+	output "ec2_instances_and_security_groups" {
+	  value = {
+	    for id, instance in data.aws_instance.details:
+	    id => instance.vpc_security_group_ids
+	  }
+	}`
+This file follows the same process: 
+`terraform init` 
+`terraform plan`
+ `terraform apply --auto-approve.`
+ ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/18.png)
+
+ For destroy the infra
+Command: `terraform destroy --auto-approve`
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/19.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/20.png)
+
+Now we push these files into github repository
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/21.png)
+
+# Set Up a Jenkins Pipeline
+### Downloading and installing Jenkins
+Completing the previous steps enables you to download and install Jenkins on AWS. To download and install Jenkins:[Jenkins Install](https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/)
+1. Ensure that your software packages are up to date on your instance by using the following command to perform a quick software update:
+[ec2-user ~]$ sudo yum update –y
+2. Add the Jenkins repo using the following command:
+[ec2-user ~]$ sudo wget -O /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+3. Import a key file from Jenkins-CI to enable installation from the package:
+[ec2-user ~]$ sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+[ec2-user ~]$ sudo yum upgrade
+4. Install Java (Amazon Linux 2023):
+[ec2-user ~]$ sudo dnf install java-17-amazon-corretto -y
+5. Install Jenkins:
+[ec2-user ~]$ sudo yum install jenkins -y
+6. Enable the Jenkins service to start at boot:
+[ec2-user ~]$ sudo systemctl enable jenkins
+7. Start Jenkins as a service:
+[ec2-user ~]$ sudo systemctl start jenkins
+You can check the status of the Jenkins service using the command:
+[ec2-user ~]$ sudo systemctl status jenkins
+
+### Create a Pipeline Job in Jenkins:
+Open Jenkins and create a new Pipeline job.
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/22.png)
+
+### Add Pipeline Script:
+This is pipeline not use the webhooks. We can see the pipeline only build when we do manually.
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/23.png)
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/24.png)
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/25.png)
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/26.png)
+
+We have now set up build triggers using GitHub webhooks. Whenever changes are made to the code and pushed to the master branch, the pipeline will automatically trigger and complete the build.
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/27.png)
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/28.png)
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/29.png)
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/30.png)
+[image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/30.png)
+
 
 
 
