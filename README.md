@@ -1,26 +1,34 @@
-# Create a GitHub Repository with Multiple Branches
+<h1 style="color: blue;"> Create a GitHub Repository with Multiple Branches</h1>
+
 Create Repository: Go to GitHub and create a new repository.
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/1.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/2.png)
 
 Install git in your local computer
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/3.png)
+
 Clone Repo: Clone it to your local machine.
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/4.png)
 
 ### Create Branches:  
 Create develop and release branches and push them to the remote repository.
 For pushing to the repository, you may be prompted for credentials. You can generate a personal access token or add an SSH key to your GitHub account for secure authentication.
 
-# Create Terraform Code to Extract EC2 Instances and Security Groups
+<h1 style="color: blue;">Create Terraform Code to Extract EC2 Instances and Security Groups</h1>
 Initialize Terraform Configuration: I used the official Terraform website to install Terraform and followed the instructions based on our operating system. [Link](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/5.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/6.png)
 
 I have created two files: one for launching the EC2 instance and the second for printing the EC2 and security group information.
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/7.png)
 
-**CreateInstance/createInstance.tf**: This terraform file crate the ec2 instance.
+This terraform file crate the ec2 instance.
+**CreateInstance/createInstance.tf**: 
 
      `provider "aws" {
 	  region = "us-east-2" 
@@ -115,22 +123,27 @@ I have created two files: one for launching the EC2 instance and the second for 
 	}`
 
 For security reasons we haven't provide aws crdentials in the file. Due to that reason we have to configure the aws credential in our system.
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/11.png)
 
 After creating the file, we need to initialize Terraform in that folder.
 Command : `terraform init`
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/12.png)
 
 Before applying the changes, we check if the code is working or not. 
 Command : `terraform plan`
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/13.png)
 
 If the plan is successful, then we can proceed with the apply.
 Command: `terraform apply --auto-approve`
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/14.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/15.png)
 
 This is the output in the AWS console showing that the Terraform file creates the instance. Finally, we launch the instances.
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/16.png)
 
 ### This file will extract the information of EC2 and security groups: 
@@ -172,13 +185,15 @@ terraform apply --auto-approve.
 
  For destroy the infra
 Command: `terraform destroy --auto-approve`
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/19.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/20.png)
 
 Now we push these files into github repository
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/21.png)
 
-# Set Up a Jenkins Pipeline
+<h1 style="color: blue;"> Set Up a Jenkins Pipeline</h1>
 ### Downloading and installing Jenkins
 Completing the previous steps enables you to download and install Jenkins on AWS. To download and install Jenkins:[Jenkins Install](https://www.jenkins.io/doc/tutorials/tutorial-for-installing-jenkins-on-AWS/)
 1. Ensure that your software packages are up to date on your instance by using the following command to perform a quick software update:
@@ -211,7 +226,8 @@ This is pipeline not use the webhooks. We can see the pipeline only build when w
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/25.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/26.png)
 
-We have now set up build triggers using GitHub webhooks. Whenever changes are made to the code and pushed to the master branch, the pipeline will automatically trigger and complete the build.
+**We have now set up build triggers using GitHub webhooks. Whenever changes are made to the code and pushed to the master branch, the pipeline will automatically trigger and complete the build.**
+
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/27.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/28.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/29.png)
