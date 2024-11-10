@@ -22,9 +22,9 @@ I have created two files: one for launching the EC2 instance and the second for 
 
 **CreateInstance/createInstance.tf**
 This terraform file crate the ec2 instance.
-  ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/8.png)
-  ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/9.png)
-  ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/10.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/8.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/9.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/10.png)
 
      `provider "aws" {
 	  region = "us-east-2" 
