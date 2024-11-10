@@ -22,10 +22,6 @@ I have created two files: one for launching the EC2 instance and the second for 
 
 **CreateInstance/createInstance.tf**: This terraform file crate the ec2 instance.
 
-![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/8.png)
-![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/9.png)
-![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/10.png)
-
      `provider "aws" {
 	  region = "us-east-2" 
 	}
@@ -137,9 +133,8 @@ Command: `terraform apply --auto-approve`
 This is the output in the AWS console showing that the Terraform file creates the instance. Finally, we launch the instances.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/16.png)
 
-This file will extract the information of EC2 and security groups: 
+### This file will extract the information of EC2 and security groups: 
 **printInfo.tf**  
-![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/17.png)
 
 	`provider "aws" {
 	  region = "us-east-2" # Replace with your region
@@ -168,9 +163,11 @@ This file will extract the information of EC2 and security groups:
 
  
 This file follows the same process: 
-`terraform init` 
-`terraform plan`
-`terraform apply --auto-approve.`
+```
+terraform init
+terraform plan
+terraform apply --auto-approve.
+```
  ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/18.png)
 
  For destroy the infra
