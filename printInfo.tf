@@ -2,10 +2,6 @@ provider "aws" {
   region = "us-east-2"
 }
 
-variable "SecretKey" {
-description = "This is for aws credential perpose"
-type = string
-}
 # Data source to retrieve all EC2 instances
 data "aws_instances" "all" {}
 
