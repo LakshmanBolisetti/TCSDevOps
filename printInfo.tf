@@ -1,7 +1,5 @@
 provider "aws" {
-  region = "us-east-2" 
-  access_key = "AKIAY2ECJ2TMLMTXXN4W"
-  secrete_key = "var.SecretKey"
+  region = "us-east-2"
 }
 
 variable "SecretKey" {
