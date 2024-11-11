@@ -32,35 +32,56 @@ This terraform file crate the ec2 instance.
 
 ```
 provider "aws" {
-  region = "us-east-2" 
+  region = "us-east-2"
 }
 
 # Create a VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "main_vpc"
+    Name        = "main_vpc"
+    Environment = "Development"
+    Owner       = "Lakshman"
+    Project     = "NetworkSetup"
+    ManagedBy   = "Terraform"
+    Region      = "us-east-2"
+    Purpose     = "Network_Management"
+    CostCenter  = "12345"
   }
 }
 
 # Create subnets
 resource "aws_subnet" "subnet1" {
-  vpc_id = aws_vpc.main.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone = "us-east-2a" 
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.1.0/24"
+  availability_zone       = "us-east-2a"
   map_public_ip_on_launch = true
   tags = {
-    Name = "subnet1"
+    Name        = "subnet1"
+    Environment = "Development"
+    Owner       = "Lakshman"
+    Project     = "NetworkSetup"
+    ManagedBy   = "Terraform"
+    Region      = "us-east-2"
+    Purpose     = "Subnet_Management"
+    CostCenter  = "12345"
   }
 }
 
 resource "aws_subnet" "subnet2" {
-  vpc_id = aws_vpc.main.id
-  cidr_block = "10.0.2.0/24"
-  availability_zone = "us-east-2b"
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = "10.0.2.0/24"
+  availability_zone       = "us-east-2b"
   map_public_ip_on_launch = true
   tags = {
-    Name = "subnet2"
+    Name        = "subnet2"
+    Environment = "Development"
+    Owner       = "Lakshman"
+    Project     = "NetworkSetup"
+    ManagedBy   = "Terraform"
+    Region      = "us-east-2"
+    Purpose     = "Subnet_Management"
+    CostCenter  = "12345"
   }
 }
 
@@ -68,9 +89,17 @@ resource "aws_subnet" "subnet2" {
 resource "aws_internet_gateway" "gw" {
   vpc_id = aws_vpc.main.id
   tags = {
-    Name = "lucky-igw"
+    Name        = "lucky-igw"
+    Environment = "Development"
+    Owner       = "Lakshman"
+    Project     = "NetworkSetup"
+    ManagedBy   = "Terraform"
+    Region      = "us-east-2"
+    Purpose     = "Internet_Gateway"
+    CostCenter  = "12345"
   }
 }
+
 # Create route table
 resource "aws_route_table" "rt" {
   vpc_id = aws_vpc.main.id
@@ -80,66 +109,77 @@ resource "aws_route_table" "rt" {
   }
 
   tags = {
-    Name = "lucky-route-table"
+    Name        = "lucky-route-table"
+    Environment = "Development"
+    Owner       = "Lakshman"
+    Project     = "NetworkSetup"
+    ManagedBy   = "Terraform"
+    Region      = "us-east-2"
+    Purpose     = "Route_Table"
+    CostCenter  = "12345"
   }
 }
+
 # Associate route table with subnets
 resource "aws_route_table_association" "rta" {
-  count      = 2
-subnet_id = element([aws_subnet.subnet1.id, aws_subnet.subnet2.id], count.index)
-  route_table_id = aws_route_table.rt.id
+  count           = 2
+  subnet_id       = element([aws_subnet.subnet1.id, aws_subnet.subnet2.id], count.index)
+  route_table_id  = aws_route_table.rt.id
 }
+
 # Create a security group
 resource "aws_security_group" "instance_sg" {
   vpc_id = aws_vpc.main.id
 
   ingress {
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   egress {
-    from_port = 0
-    to_port = 0
-    protocol = "-1"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = "instance_sg"
-    Environment = "Test"
-    Project = "DevOpsProject"
-    Owner = "Lakshman"
-    Purpose = "Data_Extraction"
-    Region = "Ohio"
-    Avilability_zone = "us-east-2a"
-    LifyCycly = "Temperory"
-    ManagedBy = "Terraform"
-    DateCreated = "11/11/2024"
+    Name             = "instance_sg"
+    Environment      = "Test"
+    Project          = "DevOpsProject"
+    Owner            = "Lakshman"
+    Purpose          = "Data_Extraction"
+    Region           = "Ohio"
+    CostCenter       = "12345"
+    Lifecycle        = "Temporary"
+    ManagedBy        = "Terraform"
+    DateCreated      = "11/11/2024"
   }
 }
 
 # Create an EC2 instance
 resource "aws_instance" "FirstInstance" {
-  ami           = "ami-09caa684bdee947fc" 
-  instance_type = "t2.micro"
-  subnet_id     = aws_subnet.subnet1.id
+  ami                   = "ami-09caa684bdee947fc"
+  instance_type         = "t2.micro"
+  subnet_id             = element([aws_subnet.subnet1.id, aws_subnet.subnet2.id], count.index%2)
   vpc_security_group_ids = [aws_security_group.instance_sg.id]
   tags = {
-    Name = "MyInstance"
-    Environment = "Test"
-    Project = "DevOpsProject"
-    Owner = "Lakshman"
-    Purpose = "Data_Extraction"
-    Region = "Ohio"
-    Avilability_zone = "us-east-2a"
-    Service = "ec2"
-    LifyCycle = "Temperory"
-    ManagedBy = "Terraform"
+    Name             = "MyInstance-${count.index + 1}"
+    Environment      = "Test"
+    Project          = "DevOpsProject"
+    Owner            = "Lakshman"
+    Purpose          = "Data_Extraction"
+    Region           = "Ohio"
+    AvailabilityZone = "us-east"
+    Service          = "ec2"
+    Lifecycle        = "Temporary"
+    ManagedBy        = "Terraform"
   }
+    count = 5
 }
+
 ```
 
 For security reasons we haven't provide aws crdentials in the file. Due to that reason we have to configure the aws credential in our system.
@@ -238,7 +278,76 @@ $ sudo systemctl start jenkins
 You can check the status of the Jenkins service using the command:
 $ sudo systemctl status jenkins
 
-### Create a Pipeline Job in Jenkins:
+### Create a Pipeline Job in Jenkins for Launch the instances:
+Install the AWS credential plug-in jenkins and after add the credentils
+Dashboard > Manage Jenkins > Credentials > System > Global credentials (unrestricted) > Add crdentials
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/33.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/34.png)
+```
+pipeline {
+    agent any
+         parameters { 
+             booleanParam(name: 'APPLY_RESOURCES', defaultValue: true, description: 'It will Create the AWS resources')
+             booleanParam(name: 'DESTROY_RESOURCES', defaultValue: false, description: 'It will Destroy the AWS resources')
+         }
+    stages {
+        stage('code') {
+            steps {
+                git 'https://github.com/LakshmanBolisetti/TCSDevOps.git'
+            }
+        }
+        stage('init') {
+            steps {
+                dir("/var/lib/jenkins/workspace/CreateInstance/CreateInstance/"){
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('plan') {
+            steps {
+                dir("/var/lib/jenkins/workspace/CreateInstance/CreateInstance/"){
+                   withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                      sh 'terraform plan'     
+                   }              
+                }
+            }
+        }
+        stage('apply') {
+            when { 
+                expression { 
+                    return params.APPLY_RESOURCES 
+                } 
+            }
+            steps {
+                dir("/var/lib/jenkins/workspace/CreateInstance/CreateInstance/"){
+                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                      sh 'terraform apply --auto-approve'     
+                   } 
+                }
+            }
+        }
+         stage('Destroy') {
+             when { 
+                expression { 
+                    return params.DESTROY_RESOURCES 
+                } 
+            }
+            steps {
+                dir("/var/lib/jenkins/workspace/CreateInstance/CreateInstance/"){
+                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                      sh 'terraform destroy --auto-approve'     
+                   } 
+                }
+            }
+        }
+    }
+}
+
+```
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/32.png)
+
+### Create a Pipeline Job in Jenkins for Extract the information of EC2 and security groups:
+
 Open Jenkins and create a new Pipeline job.
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/22.png)
 
