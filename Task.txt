@@ -1,0 +1,4 @@
+1. create a terraform (You can either use python or terraform)code, which connects to your AWS account and extracts all EC2 instances and prints them. 
+2. along with each ec2 instance, it should also print list of security groups associated with each ec2 instances. 
+3. Create a personal github repo link with 3 branches.(master,develop,release) for the python code and check-in your code. 
+4. Setup a jenkins instance in your local personal laptop or wherever. and make a groovy script, your jenkins pipeline which contains at least 3 stages in your CICD pipeline.pipeline- stages can be dummy, but build should be passed after each check-in.
