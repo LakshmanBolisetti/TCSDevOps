@@ -76,6 +76,15 @@ resource "aws_security_group" "instance_sg" {
 
   tags = {
     Name = "instance_sg"
+    Environment = "Test"
+    Project = "DevOpsProject"
+    Owner = "Lakshman"
+    Purpose = "Data_Extraction"
+    Region = "Ohio"
+    Avilability_zone = "us-east-2a"
+    LifyCycly = "Temperory"
+    ManagedBy = "Terraform"
+    DateCreated = "11/11/2024"
   }
 }
 
@@ -87,6 +96,15 @@ resource "aws_instance" "FirstInstance" {
   vpc_security_group_ids = [aws_security_group.instance_sg.id]
   tags = {
     Name = "MyInstance"
+    Environment = "Test"
+    Project = "DevOpsProject"
+    Owner = "Lakshman"
+    Purpose = "Data_Extraction"
+    Region = "Ohio"
+    Avilability_zone = "us-east-2a"
+    Service = "ec2"
+    LifyCycle = "Temperory"
+    ManagedBy = "Terraform"
   }
 }
 
