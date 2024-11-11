@@ -283,6 +283,7 @@ Install the AWS credential plug-in jenkins and after add the credentils
 Dashboard > Manage Jenkins > Credentials > System > Global credentials (unrestricted) > Add crdentials
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/33.png)
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/34.png)
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/35.png)
 ```
 pipeline {
     agent any
