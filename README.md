@@ -30,8 +30,7 @@ I have created two files: one for launching the EC2 instance and the second for 
 This terraform file crate the ec2 instance.
 **CreateInstance/createInstance.tf**: 
 
-`
-provider "aws" {
+`provider "aws" {
   region = "us-east-2" 
 }
 
@@ -139,9 +138,7 @@ resource "aws_instance" "FirstInstance" {
     LifyCycle = "Temperory"
     ManagedBy = "Terraform"
   }
-}
-
-`
+}`
 
 For security reasons we haven't provide aws crdentials in the file. Due to that reason we have to configure the aws credential in our system.
 
