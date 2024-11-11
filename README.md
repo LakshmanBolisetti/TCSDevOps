@@ -169,7 +169,8 @@ This is the output in the AWS console showing that the Terraform file creates th
 ### This file will extract the information of EC2 and security groups: 
 **printInfo.tf**  
 
-	`provider "aws" {
+```
+	provider "aws" {
 	  region = "us-east-2" # Replace with your region
 	}
 	
@@ -192,8 +193,8 @@ This is the output in the AWS console showing that the Terraform file creates th
 	    for id, instance in data.aws_instance.details:
 	    id => instance.vpc_security_group_ids
 	  }
-	}`
-`
+	}
+```
  
 This file follows the same process: 
 ```
