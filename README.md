@@ -35,6 +35,14 @@ provider "aws" {
   region = "us-east-2"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "luckyterraformlucky"
+    key    = "Terraform/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
 # Create a VPC
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
@@ -213,7 +221,13 @@ This is the output in the AWS console showing that the Terraform file creates th
 	provider "aws" {
 	  region = "us-east-2" # Replace with your region
 	}
-	
+          terraform {
+              backend "s3" {
+                   bucket = "luckyterraformlucky"
+                   key    = "Terraform/terraform.tfstate"
+                   region = "us-east-1"
+             }
+                 } 
 	# Data source to retrieve all EC2 instances
 	data "aws_instances" "all" {}
 	
@@ -253,6 +267,18 @@ Command: `terraform destroy --auto-approve`
 Now we push these files into github repository
 
 ![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/21.png)
+
+Storing your Terraform state securely is crucial for maintaining the integrity and consistency of your infrastructure. Terraform state can be stored in several remote backends, which allows you to share it among team members and securely manage it. 
+
+**S3 Bucket**
+Create the S3 bucket
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/36.png)
+
+Create a folder
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/37.png)
+
+This is the terraform state file
+![image](https://github.com/LakshmanBolisetti/TCSDevOps/blob/master/Resources/38.png)
 
 # Set Up a Jenkins Pipeline
 
