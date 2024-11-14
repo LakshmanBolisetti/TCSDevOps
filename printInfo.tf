@@ -2,6 +2,14 @@ provider "aws" {
   region = "us-east-2"
 }
 
+terraform {
+  backend "s3" {
+    bucket = "luckyterraformlucky"
+    key    = "Terraform/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
 # Data source to retrieve all EC2 instances
 data "aws_instances" "all" {}
 
