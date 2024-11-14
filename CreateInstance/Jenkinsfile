@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+         parameters { 
+             booleanParam(name: 'APPLY_RESOURCES', defaultValue: true, description: 'It will Create the AWS resources')
+             booleanParam(name: 'DESTROY_RESOURCES', defaultValue: false, description: 'It will Destroy the AWS resources')
+         }
+    stages {
+        stage('code') {
+            steps {
+                git 'https://github.com/LakshmanBolisetti/TCSDevOps.git'
+            }
+        }
+        stage('init') {
+            steps {
+                dir("/var/lib/jenkins/workspace/CreateInstance/CreateInstance/"){
+                    sh 'terraform init'
+                }
+            }
+        }
+        stage('plan') {
+            steps {
+                dir("/var/lib/jenkins/workspace/CreateInstance/CreateInstance/"){
+                   withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                      sh 'terraform plan'     
+                   }              
+                }
+            }
+        }
+        stage('apply') {
+            when { 
+                expression { 
+                    return params.APPLY_RESOURCES 
+                } 
+            }
+            steps {
+                dir("/var/lib/jenkins/workspace/CreateInstance/CreateInstance/"){
+                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                      sh 'terraform apply --auto-approve'     
+                   } 
+                }
+            }
+        }
+         stage('Destroy') {
+             when { 
+                expression { 
+                    return params.DESTROY_RESOURCES 
+                } 
+            }
+            steps {
+                dir("/var/lib/jenkins/workspace/CreateInstance/CreateInstance/"){
+                    withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'AWSCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                      sh 'terraform destroy --auto-approve'     
+                   } 
+                }
+            }
+        }
+    }
+}
